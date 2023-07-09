@@ -1,0 +1,21 @@
+.contact_list {
+  width: 400px;
+  list-style: circle;
+
+}
+
+/* .contact_list_item {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+} */
+
+/* .contact_list_item div {
+  display: flex;
+  justify-content: space-between;
+} */
+
+/* .contact_list_item_name {
+  text-transform: capitalize;
+} */
+
