@@ -1,17 +1,25 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import css from './ContactForm.module.css';
 
-import { getContacts, addContact } from 'redux/contactsSlice';
+import { RotatingLines } from 'react-loader-spinner';
+import { ToastContainer } from 'react-toastify';
+
+
+import { selectContacts } from 'redux/contactsSlice';
+import { addContactThunk } from 'redux/operations';
+
+import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-
-  const formInfo = { name, number };
+  const {
+    items: contacts,
+    isLoading: { isLoadingContact },
+  } = useSelector(selectContacts);
+  const formInfo = { name, phone: number };
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -37,7 +45,7 @@ export const ContactForm = () => {
     if (isContactIncuded) {
       alert(`${formInfo.name} is already in contacts`);
     } else {
-      dispatch(addContact(formInfo));
+      dispatch(addContactThunk(formInfo));
     }
 
     setName('');
@@ -46,6 +54,7 @@ export const ContactForm = () => {
 
   return (
     <div>
+      <ToastContainer />
       <form onSubmit={handleSubmit} className={css.contact_form}>
         <label className={css.form_label}>
           Name
@@ -74,7 +83,8 @@ export const ContactForm = () => {
           />
         </label>
         <button type="submit" className={css.form_button}>
-          Add contact
+          Add contact{' '}
+          {isLoadingContact && <RotatingLines strokeColor="green" width="20" />}
         </button>
       </form>
     </div>

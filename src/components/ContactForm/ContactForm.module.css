@@ -26,9 +26,12 @@
 }
 
 .form_button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     font-size: 14px;
     font-weight: 600;
-    width: 100px;
+    width: 130px;
     height: 30px;
     border: 1px solid rgb(4, 101, 40);
     border-radius: 5px;
